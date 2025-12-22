@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>SIGEM - Inicio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: url("fondo.jpg") center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+    }
+
+    .header {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 60px;
+      letter-spacing: 4px;
+    }
+
+    .header h2 {
+      font-size: 18px;
+      margin-top: 8px;
+      font-weight: 400;
+    }
+
+    .login-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: none;
+      background-color: #ffffff;
+      color: #1c4f7c;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 40px;
+      width: 80%;
+      max-width: 900px;
+      align-items: center;
+      justify-items: center;
+    }
+
+    .circle-btn {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #1c4f7c;
+      text-decoration: none;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .circle-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .circle-btn img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+    }
+
+    .circle-btn span {
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <button class="login-btn">Inicio de Sesión</button>
+
+  <div class="header">
+    <h1>SIGEM</h1>
+    <h2>Sistema de Gestión Minera Municipal</h2>
+  </div>
+
+  <div class="buttons-grid" id="buttons-container"></div>
+
+  <script>
+    const modules = [
+      {
+        name: "CALCUMIN",
+        icon: "icono1.png",
+        url: "https://ejemplo.com/calcumin"
+      },
+      {
+        name: "Mapas",
+        icon: "icono2.png",
+        url: "https://ejemplo.com/mapas"
+      },
+      {
+        name: "Documentos",
+        icon: "icono3.png",
+        url: "https://drive.google.com/..."
+      },
+      {
+        name: "Sitios de interés",
+        icon: "icono4.png",
+        url: "https://ejemplo.com/sitios"
+      }
+      // En el futuro solo agregas más objetos aquí
+    ];
+
+    const container = document.getElementById("buttons-container");
+
+    modules.forEach(m => {
+      const a = document.createElement("a");
+      a.href = m.url;
+      a.target = "_blank";
+      a.className = "circle-btn";
+      a.innerHTML = `
+        <img src="${m.icon}" alt="${m.name}" />
+        <span>${m.name}</span>
+      `;
+      container.appendChild(a);
+    });
+  </script>
+</body>
+</html>
