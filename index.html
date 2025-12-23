@@ -9,7 +9,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
@@ -28,6 +28,12 @@
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
+      transition: opacity 0.3s;
+    }
+
+    .header.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .header h1 {
@@ -52,6 +58,69 @@
       color: #1c4f7c;
       font-weight: bold;
       cursor: pointer;
+      z-index: 10;
+      transition: background-color 0.3s;
+    }
+
+    .login-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    .logout-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: none;
+      background-color: #dc3545;
+      color: #ffffff;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+      display: none;
+    }
+
+    .logout-btn.visible {
+      display: block;
+    }
+
+    .admin-btn {
+      position: absolute;
+      top: 30px;
+      right: 150px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: none;
+      background-color: #28a745;
+      color: #ffffff;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+      display: none;
+    }
+
+    .admin-btn.visible {
+      display: block;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 30px;
+      left: 40px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #1c4f7c;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+      z-index: 10;
+    }
+
+    .back-btn.visible {
+      display: block;
     }
 
     .buttons-grid {
@@ -62,6 +131,12 @@
       max-width: 900px;
       align-items: center;
       justify-items: center;
+      transition: opacity 0.3s;
+    }
+
+    .buttons-grid.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .circle-btn {
@@ -78,6 +153,8 @@
       text-decoration: none;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
       transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
     }
 
     .circle-btn:hover {
@@ -95,56 +172,551 @@
       font-weight: bold;
       font-size: 14px;
     }
+
+    /* Modal de Login */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.visible {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      color: #1c4f7c;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #1c4f7c;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background-color: #1c4f7c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #2d6a9f;
+    }
+
+    .error-message {
+      color: #dc3545;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+      display: none;
+    }
+
+    .error-message.visible {
+      display: block;
+    }
+
+    .success-message {
+      color: #28a745;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+      display: none;
+    }
+
+    .success-message.visible {
+      display: block;
+    }
+
+    /* Panel de Administración */
+    .content-section {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 1200px;
+      height: 85vh;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: #1c4f7c;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      overflow-y: auto;
+    }
+
+    .content-section.visible {
+      display: block;
+    }
+
+    .content-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #1c4f7c;
+    }
+
+    .admin-panel {
+      margin-top: 30px;
+    }
+
+    .user-form {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .user-form h3 {
+      margin-bottom: 15px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .users-list {
+      margin-top: 30px;
+    }
+
+    .user-item {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-item strong {
+      color: #1c4f7c;
+    }
+
+    .btn-danger {
+      padding: 6px 12px;
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+    }
+
+    .content-section iframe {
+      width: 100%;
+      height: calc(85vh - 120px);
+      border: none;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .content-section a {
+      color: #1c4f7c;
+      text-decoration: underline;
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #1c4f7c;
+      color: white;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+
+    .content-section a:hover {
+      background-color: #2d6a9f;
+    }
   </style>
 </head>
 <body>
-  <button class="login-btn">Inicio de Sesión</button>
+  <button class="login-btn" id="login-btn">Inicio de Sesión</button>
+  <button class="logout-btn" id="logout-btn">Cerrar Sesión</button>
+  <button class="admin-btn" id="admin-btn">Panel Admin</button>
+  <button class="back-btn" id="back-btn">← Volver</button>
 
-  <div class="header">
+  <div class="header" id="header">
     <h1>SIGEM</h1>
     <h2>Sistema de Gestión Minera Municipal</h2>
   </div>
 
   <div class="buttons-grid" id="buttons-container"></div>
 
+  <!-- Modal de Login -->
+  <div class="modal" id="login-modal">
+    <div class="modal-content">
+      <h2>Iniciar Sesión</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Usuario (Email):</label>
+          <input type="text" id="username" name="username" required placeholder="modernizacion.inhgeomin.gob.hn">
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña:</label>
+          <input type="password" id="password" name="password" required placeholder="admin123">
+        </div>
+        <button type="submit" class="btn-primary">Ingresar</button>
+        <div class="error-message" id="error-message">Usuario o contraseña incorrectos</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Secciones de contenido -->
+  <div class="content-section" id="content-calcumin">
+    <h2>CALCUMIN</h2>
+    <p>Herramientas inteligentes para cálculos mineros</p>
+    <iframe src="http://flavio1227.github.io/CALCUMIN/" allowfullscreen></iframe>
+  </div>
+
+  <div class="content-section" id="content-mapas">
+    <h2>Mapas</h2>
+    <p>Visualización de mapas y ubicaciones mineras</p>
+    <p>Aquí puedes agregar mapas interactivos o enlaces a servicios de mapas.</p>
+    <a href="https://www.google.com/maps" target="_blank">Abrir Google Maps</a>
+  </div>
+
+  <div class="content-section" id="content-documentos">
+    <h2>Documentos</h2>
+    <p>Acceso a documentos y archivos</p>
+    <p>Enlaces a Google Drive:</p>
+    <a href="https://drive.google.com/..." target="_blank">Abrir carpeta de documentos</a>
+  </div>
+
+  <div class="content-section" id="content-sitios">
+    <h2>Sitios de Interés</h2>
+    <p>Enlaces útiles y recursos relacionados</p>
+    <a href="https://ejemplo.com/sitios" target="_blank">Visitar sitio</a>
+  </div>
+
+  <!-- Panel de Administración -->
+  <div class="content-section" id="content-admin">
+    <h2>Panel de Administración</h2>
+    <p>Gestión de usuarios del sistema</p>
+    
+    <div class="admin-panel">
+      <div class="user-form">
+        <h3>Crear Nuevo Usuario</h3>
+        <form id="create-user-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="new-username">Usuario (Email):</label>
+              <input type="email" id="new-username" name="new-username" required>
+            </div>
+            <div class="form-group">
+              <label for="new-password">Contraseña:</label>
+              <input type="password" id="new-password" name="new-password" required>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary">Crear Usuario</button>
+          <div class="error-message" id="user-error-message"></div>
+          <div class="success-message" id="user-success-message"></div>
+        </form>
+      </div>
+
+      <div class="users-list">
+        <h3>Usuarios Registrados</h3>
+        <div id="users-list-container"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // Constantes
+    const SUPER_USER = "modernizacion.inhgeomin.gob.hn";
+    const SUPER_USER_PASSWORD = "admin123"; // Cambia esto por una contraseña segura
+
+    // Inicializar almacenamiento de usuarios
+    function initUsers() {
+      if (!localStorage.getItem('users')) {
+        const users = {
+          [SUPER_USER]: {
+            password: SUPER_USER_PASSWORD,
+            isSuperUser: true
+          }
+        };
+        localStorage.setItem('users', JSON.stringify(users));
+      }
+    }
+
+    // Obtener usuarios
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('users') || '{}');
+    }
+
+    // Guardar usuarios
+    function saveUsers(users) {
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    // Verificar si hay sesión activa
+    function checkSession() {
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        const users = getUsers();
+        if (users[currentUser]) {
+          showLoggedInState(currentUser);
+        }
+      }
+    }
+
+    // Mostrar estado de usuario logueado
+    function showLoggedInState(username) {
+      document.getElementById('login-btn').style.display = 'none';
+      document.getElementById('logout-btn').classList.add('visible');
+      
+      const users = getUsers();
+      if (users[username] && users[username].isSuperUser) {
+        document.getElementById('admin-btn').classList.add('visible');
+      }
+    }
+
+    // Cerrar sesión
+    function logout() {
+      localStorage.removeItem('currentUser');
+      document.getElementById('login-btn').style.display = 'block';
+      document.getElementById('logout-btn').classList.remove('visible');
+      document.getElementById('admin-btn').classList.remove('visible');
+      goBack();
+    }
+
+    // Módulos
     const modules = [
       {
         name: "CALCUMIN",
         icon: "icono1.png",
-        url: "https://flavio1227.github.io/CALCUMIN/"
+        id: "calcumin"
       },
       {
         name: "Mapas",
         icon: "icono2.png",
-        url: "https://ejemplo.com/mapas"
+        id: "mapas"
       },
       {
         name: "Documentos",
         icon: "icono3.png",
-        url: "https://drive.google.com/..."
+        id: "documentos"
       },
       {
         name: "Sitios de interés",
         icon: "icono4.png",
-        url: "https://ejemplo.com/sitios"
+        id: "sitios"
       }
-      // En el futuro solo agregas más objetos aquí
     ];
 
+    // Elementos del DOM
     const container = document.getElementById("buttons-container");
+    const backBtn = document.getElementById("back-btn");
+    const header = document.getElementById("header");
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const adminBtn = document.getElementById("admin-btn");
+    const loginModal = document.getElementById("login-modal");
+    const loginForm = document.getElementById("login-form");
+    const createUserForm = document.getElementById("create-user-form");
 
+    // Inicializar
+    initUsers();
+    checkSession();
+
+    // Crear botones de módulos
     modules.forEach(m => {
-      const a = document.createElement("a");
-      a.href = m.url;
-      a.target = "_blank";
-      a.className = "circle-btn";
-      a.innerHTML = `
+      const btn = document.createElement("button");
+      btn.className = "circle-btn";
+      btn.innerHTML = `
         <img src="${m.icon}" alt="${m.name}" />
         <span>${m.name}</span>
       `;
-      container.appendChild(a);
+      btn.addEventListener("click", () => showSection(m.id));
+      container.appendChild(btn);
     });
+
+    // Mostrar sección
+    function showSection(sectionId) {
+      container.classList.add("hidden");
+      header.classList.add("hidden");
+      backBtn.classList.add("visible");
+      
+      document.querySelectorAll(".content-section").forEach(section => {
+        section.classList.remove("visible");
+      });
+      
+      const section = document.getElementById(`content-${sectionId}`);
+      if (section) {
+        section.classList.add("visible");
+      }
+    }
+
+    // Volver al inicio
+    function goBack() {
+      document.querySelectorAll(".content-section").forEach(section => {
+        section.classList.remove("visible");
+      });
+      backBtn.classList.remove("visible");
+      container.classList.remove("hidden");
+      header.classList.remove("hidden");
+    }
+
+    // Mostrar modal de login
+    loginBtn.addEventListener("click", () => {
+      loginModal.classList.add("visible");
+      document.getElementById("error-message").classList.remove("visible");
+    });
+
+    // Cerrar modal al hacer clic fuera
+    loginModal.addEventListener("click", (e) => {
+      if (e.target === loginModal) {
+        loginModal.classList.remove("visible");
+      }
+    });
+
+    // Procesar login
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      const users = getUsers();
+
+      if (users[username] && users[username].password === password) {
+        localStorage.setItem('currentUser', username);
+        loginModal.classList.remove("visible");
+        showLoggedInState(username);
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("error-message").classList.remove("visible");
+      } else {
+        document.getElementById("error-message").classList.add("visible");
+      }
+    });
+
+    // Cerrar sesión
+    logoutBtn.addEventListener("click", logout);
+
+    // Abrir panel de administración
+    adminBtn.addEventListener("click", () => {
+      showSection("admin");
+      loadUsersList();
+    });
+
+    // Volver
+    backBtn.addEventListener("click", goBack);
+
+    // Crear nuevo usuario
+    createUserForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const newUsername = document.getElementById("new-username").value.trim();
+      const newPassword = document.getElementById("new-password").value;
+      const users = getUsers();
+      const errorMsg = document.getElementById("user-error-message");
+      const successMsg = document.getElementById("user-success-message");
+
+      // Limpiar mensajes anteriores
+      errorMsg.classList.remove("visible");
+      successMsg.classList.remove("visible");
+
+      if (users[newUsername]) {
+        errorMsg.textContent = "Este usuario ya existe";
+        errorMsg.classList.add("visible");
+        return;
+      }
+
+      if (newPassword.length < 6) {
+        errorMsg.textContent = "La contraseña debe tener al menos 6 caracteres";
+        errorMsg.classList.add("visible");
+        return;
+      }
+
+      users[newUsername] = {
+        password: newPassword,
+        isSuperUser: false
+      };
+      saveUsers(users);
+      
+      successMsg.textContent = "Usuario creado exitosamente";
+      successMsg.classList.add("visible");
+      
+      document.getElementById("new-username").value = "";
+      document.getElementById("new-password").value = "";
+      
+      loadUsersList();
+    });
+
+    // Cargar lista de usuarios
+    function loadUsersList() {
+      const users = getUsers();
+      const container = document.getElementById("users-list-container");
+      container.innerHTML = "";
+
+      Object.keys(users).forEach(username => {
+        const userItem = document.createElement("div");
+        userItem.className = "user-item";
+        userItem.innerHTML = `
+          <div>
+            <strong>${username}</strong>
+            ${users[username].isSuperUser ? '<span style="color: #28a745; margin-left: 10px;">(Super Usuario)</span>' : ''}
+          </div>
+          ${!users[username].isSuperUser ? `<button class="btn-danger" onclick="deleteUser('${username}')">Eliminar</button>` : ''}
+        `;
+        container.appendChild(userItem);
+      });
+    }
+
+    // Eliminar usuario
+    window.deleteUser = function(username) {
+      if (confirm(`¿Estás seguro de eliminar al usuario ${username}?`)) {
+        const users = getUsers();
+        delete users[username];
+        saveUsers(users);
+        loadUsersList();
+      }
+    };
   </script>
 </body>
 </html>
